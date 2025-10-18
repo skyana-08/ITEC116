@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // 🔍 search state
 
   // Load tasks on start
   useEffect(() => {
@@ -44,21 +47,47 @@ function App() {
     fetchTasks();
   };
 
-  // Styles
-  const appStyle = {
-    backgroundImage: "url('/todobg.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    minHeight: "100vh",
-    width: "100vw",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
-    filter: "brightness(0.9)",
-    fontFamily: "'Poppins', Wide Latin",
+  const startEdit = (task) => {
+    setEditingId(task.id);
+    setEditedTitle(task.title);
   };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditedTitle("");
+  };
+
+  const saveEdit = async (id) => {
+    await fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: editedTitle }),
+    });
+    setEditingId(null);
+    setEditedTitle("");
+    fetchTasks();
+  };
+
+  // 🔍 Filter tasks based on search term
+  const filteredTasks = tasks.filter((task) =>
+    task.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Styles
+const appStyle = {
+  backgroundImage: "url('/todobg.jpg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  height: "100vh", // use exact viewport height
+  width: "100vw",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  overflow: "hidden", // prevent scrolling
+  fontFamily: "'Poppins', sans-serif",
+};
+
 
   const cardStyle = {
     backdropFilter: "blur(10px)",
@@ -70,7 +99,6 @@ function App() {
     textAlign: "center",
     color: "white",
     boxShadow: "0 8px 25px rgba(0,0,0,0.4)",
-    
   };
 
   const inputContainer = {
@@ -78,6 +106,7 @@ function App() {
     justifyContent: "center",
     marginBottom: "20px",
     gap: "10px",
+    flexWrap: "wrap",
   };
 
   const inputStyle = {
@@ -87,25 +116,55 @@ function App() {
     flex: 1,
   };
 
-  const addButton = {
-    padding: "10px 15px",
+  const button = {
+    padding: "8px 12px",
     borderRadius: "5px",
     border: "none",
+    cursor: "pointer",
+    fontFamily: "'Poppins', sans-serif",
+  };
+
+  const addButton = {
+    ...button,
     backgroundColor: "#007bff",
     color: "white",
-    cursor: "pointer",
-    fontFamily: "'Poppins', Arial",
   };
 
   const deleteButton = {
-    marginLeft: "10px",
-    padding: "5px 10px",
-    borderRadius: "5px",
-    border: "none",
+    ...button,
     backgroundColor: "#dc3545",
     color: "white",
-    cursor: "pointer",
-    fontFamily: "'Poppins', Arial",
+  };
+
+  const editButton = {
+    ...button,
+    backgroundColor: "#ffc107",
+    color: "black",
+  };
+
+  const saveButton = {
+    ...button,
+    backgroundColor: "#28a745",
+    color: "white",
+  };
+
+  const cancelButton = {
+    ...button,
+    backgroundColor: "#6c757d",
+    color: "white",
+  };
+
+  const searchBarStyle = {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "20px",
+  };
+
+  const searchInput = {
+    ...inputStyle,
+    width: "80%",
+    maxWidth: "300px",
+    textAlign: "center",
   };
 
   const taskStyle = (completed) => ({
@@ -118,7 +177,6 @@ function App() {
     marginBottom: "10px",
     textDecoration: completed ? "line-through" : "none",
     opacity: completed ? 0.6 : 1,
-    fontFamily: "'Poppins', Arial",
   });
 
   return (
@@ -126,6 +184,18 @@ function App() {
       <div style={cardStyle}>
         <h1>To-Do List</h1>
 
+        {/* 🔍 Centralized Search Bar */}
+        <div style={searchBarStyle}>
+          <input
+            type="text"
+            style={searchInput}
+            placeholder="Search tasks..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* Add Task Section */}
         <div style={inputContainer}>
           <input
             style={inputStyle}
@@ -138,23 +208,61 @@ function App() {
           </button>
         </div>
 
+        {/* Task List */}
         <ul style={{ listStyle: "none", padding: 0 }}>
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <li key={task.id} style={taskStyle(task.completed)}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  flex: 1,
+                }}
+              >
                 <input
                   type="checkbox"
                   checked={task.completed}
                   onChange={() => toggleComplete(task.id, task.completed)}
                 />
-                <span>{task.title}</span>
+                {editingId === task.id ? (
+                  <input
+                    style={{
+                      ...inputStyle,
+                      flex: 1,
+                      marginRight: "10px",
+                      fontSize: "14px",
+                    }}
+                    value={editedTitle}
+                    onChange={(e) => setEditedTitle(e.target.value)}
+                  />
+                ) : (
+                  <span>{task.title}</span>
+                )}
               </div>
-              <button
-                style={deleteButton}
-                onClick={() => deleteTask(task.id)}
-              >
-                Delete
-              </button>
+
+              {editingId === task.id ? (
+                <>
+                  <button style={saveButton} onClick={() => saveEdit(task.id)}>
+                    Save
+                  </button>
+                  <button style={cancelButton} onClick={cancelEdit}>
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button style={editButton} onClick={() => startEdit(task)}>
+                    Edit
+                  </button>
+                  <button
+                    style={deleteButton}
+                    onClick={() => deleteTask(task.id)}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>
