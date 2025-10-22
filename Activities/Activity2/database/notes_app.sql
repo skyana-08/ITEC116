@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2025 at 03:29 PM
+-- Generation Time: Oct 22, 2025 at 03:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,8 @@ CREATE TABLE `note` (
 --
 
 INSERT INTO `note` (`id`, `title`, `content`, `userId`, `created_at`, `updated_at`) VALUES
-(1, 'asdfasdf', 'asdfasdfasdfsdfgdfghsdfghjsdfghjldijfgjkhsdfgl', 1, '2025-10-22 21:20:01.464159', '2025-10-22 21:27:27.000000');
+(6, 'BINANGKAL RECIPE', 'Binangkal Ingredients\n2 cups all-purpose flour\n1/4 Cup cornstarch\n3/4 Cup white sugar\n1/4 teaspoon Salt\n1 teaspoon baking powder\n2 tablespoons salted butter melted\n1 large egg\n1/2 Cup evaporated milk\n1/2 Cup sesame seeds,\n1/4 teaspoon vanilla Optional', 1, '2025-10-22 21:38:00.173788', '2025-10-22 21:38:00.173788'),
+(7, 'Instructions', '1. Combine all dry ingredients in a bowl: flour, cornstarch, sugar, salt, and baking powder. Mix well.\n2. In a separate bowl mix together milk, melted butter, and egg. Mix well.\n3. Slowly add the dry ingredients into the wet mixture. Mix well to form a dough.\n4. Scoop a tablespoon mixture to form a ball and roll it into the sesame seeds.\n5. Prepare oil in a pan for deep frying. Make sure the oil is hot before putting the dough.\n6. Deep fry until golden brown.\n', 1, '2025-10-22 21:38:42.266682', '2025-10-22 21:38:42.266682');
 
 -- --------------------------------------------------------
 
@@ -90,7 +91,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `note`
 --
 ALTER TABLE `note`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
