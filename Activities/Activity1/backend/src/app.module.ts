@@ -10,10 +10,10 @@ import { Task } from './tasks/entities/task.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '', // leave empty if no password
+      password: '',
       database: 'todo_db',
       entities: [Task],
-      synchronize: true, // auto-create tables (OK for dev)
+      synchronize: true,
     }),
     TasksModule,
   ],
