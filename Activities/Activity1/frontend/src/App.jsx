@@ -5,9 +5,9 @@ function App() {
   const [newTask, setNewTask] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editedTitle, setEditedTitle] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // 🔍 search state
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Load tasks on start
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -68,7 +68,7 @@ function App() {
     fetchTasks();
   };
 
-  // 🔍 Filter tasks based on search term
+
   const filteredTasks = tasks.filter((task) =>
     task.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -79,12 +79,12 @@ const appStyle = {
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
-  height: "100vh", // use exact viewport height
+  height: "100vh",
   width: "100vw",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  overflow: "hidden", // prevent scrolling
+  overflow: "hidden", 
   fontFamily: "'Poppins', sans-serif",
 };
 
@@ -184,7 +184,7 @@ const appStyle = {
       <div style={cardStyle}>
         <h1>To-Do List</h1>
 
-        {/* 🔍 Centralized Search Bar */}
+      
         <div style={searchBarStyle}>
           <input
             type="text"
@@ -195,7 +195,7 @@ const appStyle = {
           />
         </div>
 
-        {/* Add Task Section */}
+      
         <div style={inputContainer}>
           <input
             style={inputStyle}
@@ -208,7 +208,7 @@ const appStyle = {
           </button>
         </div>
 
-        {/* Task List */}
+
         <ul style={{ listStyle: "none", padding: 0 }}>
           {filteredTasks.map((task) => (
             <li key={task.id} style={taskStyle(task.completed)}>
