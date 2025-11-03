@@ -13,11 +13,36 @@ const NoteForm = ({ onSubmit, initialData = {}, onCancel, submitText = 'Create N
     });
   };
 
+  // Handle Tab key in textarea
+  const handleKeyDown = (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = e.target.selectionStart;
+      const end = e.target.selectionEnd;
+      
+      // Insert tab character at cursor position
+      const newContent = formData.content.substring(0, start) + '\t' + formData.content.substring(end);
+      
+      setFormData({
+        ...formData,
+        content: newContent
+      });
+      
+      // Set cursor position after the tab
+      setTimeout(() => {
+        e.target.selectionStart = e.target.selectionEnd = start + 1;
+      }, 0);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.title.trim() && formData.content.trim()) {
       onSubmit(formData);
-      setFormData({ title: '', content: '' });
+      // Only reset if it's a new note (not editing)
+      if (!initialData.id) {
+        setFormData({ title: '', content: '' });
+      }
     }
   };
 
@@ -39,7 +64,12 @@ const NoteForm = ({ onSubmit, initialData = {}, onCancel, submitText = 'Create N
           placeholder="Note Content"
           value={formData.content}
           onChange={handleChange}
+          onKeyDown={handleKeyDown} // Add tab key handler
           required
+          style={{
+            fontFamily: 'monospace', // Use monospace for better alignment
+            whiteSpace: 'pre', // Preserve whitespace in textarea
+          }}
         />
       </div>
       <div className="note-actions">

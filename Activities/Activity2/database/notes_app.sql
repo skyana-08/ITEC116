@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2025 at 03:39 PM
+-- Generation Time: Oct 25, 2025 at 05:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,8 +41,8 @@ CREATE TABLE `note` (
 --
 
 INSERT INTO `note` (`id`, `title`, `content`, `userId`, `created_at`, `updated_at`) VALUES
-(6, 'BINANGKAL RECIPE', 'Binangkal Ingredients\n2 cups all-purpose flour\n1/4 Cup cornstarch\n3/4 Cup white sugar\n1/4 teaspoon Salt\n1 teaspoon baking powder\n2 tablespoons salted butter melted\n1 large egg\n1/2 Cup evaporated milk\n1/2 Cup sesame seeds,\n1/4 teaspoon vanilla Optional', 1, '2025-10-22 21:38:00.173788', '2025-10-22 21:38:00.173788'),
-(7, 'Instructions', '1. Combine all dry ingredients in a bowl: flour, cornstarch, sugar, salt, and baking powder. Mix well.\n2. In a separate bowl mix together milk, melted butter, and egg. Mix well.\n3. Slowly add the dry ingredients into the wet mixture. Mix well to form a dough.\n4. Scoop a tablespoon mixture to form a ball and roll it into the sesame seeds.\n5. Prepare oil in a pan for deep frying. Make sure the oil is hot before putting the dough.\n6. Deep fry until golden brown.\n', 1, '2025-10-22 21:38:42.266682', '2025-10-22 21:38:42.266682');
+(6, 'BINANGKAL RECIPE', 'Binangkal Ingredients:\n2 cups all-purpose flour\n1/4 Cup cornstarch\n3/4 Cup white sugar\n1/4 teaspoon Salt\n1 teaspoon baking powder\n2 tablespoons salted butter melted\n1 large egg\n1/2 Cup evaporated milk\n1/2 Cup sesame seeds,\n1/4 teaspoon vanilla Optional', 1, '2025-10-22 21:38:00.173788', '2025-10-24 10:09:26.000000'),
+(7, 'Instructions of making binangkal recipe', '1. Combine all dry ingredients in a bowl: flour, cornstarch, sugar, salt, and baking powder. Mix well.\n2. In a separate bowl mix together milk, melted butter, and egg. Mix well.\n3. Slowly add the dry ingredients into the wet mixture. Mix well to form a dough.\n4. Scoop a tablespoon mixture to form a ball and roll it into the sesame seeds.\n5. Prepare oil in a pan for deep frying. Make sure the oil is hot before putting the dough.\n6. Deep fry until golden brown.\n', 1, '2025-10-22 21:38:42.266682', '2025-10-24 10:10:37.000000');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `name`, `created_at`) VALUES
-(1, 'xyrilljohnabreu25@gmail.com', '$2b$10$Ah2OC0yGp/b4uxovL8pQRuG.0R0JMeASGSYmpXgDEOQTZI9QWx4YG', 'Xy Abreu', '2025-10-22 21:19:50.445525');
+(1, 'user@gmail.com', '$2b$10$Ah2OC0yGp/b4uxovL8pQRuG.0R0JMeASGSYmpXgDEOQTZI9QWx4YG', 'Xy Abreu', '2025-10-22 21:19:50.445525');
 
 --
 -- Indexes for dumped tables
@@ -91,13 +91,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `note`
 --
 ALTER TABLE `note`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

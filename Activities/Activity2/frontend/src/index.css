@@ -1,13 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --primary-accent: #DD700B;
+  --primary-dark: #7C7D75;
+  --primary-medium: #ADACA7;
+  --background-light: #FCF8D8;
+  --background-medium: #D9DADF;
+  --text-dark: #7C7D75;
+  --text-medium: #ADACA7;
+  --white: #FFFFFF;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, var(--background-light) 0%, var(--background-medium) 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .container {
@@ -20,9 +36,11 @@ body {
   max-width: 400px;
   margin: 100px auto;
   padding: 40px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(124, 125, 117, 0.15);
+  border: 1px solid var(--primary-medium);
+  backdrop-filter: blur(10px);
 }
 
 .form-group {
@@ -31,17 +49,34 @@ body {
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 2px solid var(--primary-medium);
+  border-radius: 6px;
   font-size: 16px;
+  background-color: var(--white);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 3px rgba(221, 112, 11, 0.1);
+  transform: translateY(-1px);
 }
 
 .form-group textarea {
@@ -50,71 +85,97 @@ body {
 }
 
 .btn {
-  padding: 12px 24px;
+  padding: 14px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary-accent);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(221, 112, 11, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #b85909;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(221, 112, 11, 0.4);
 }
 
 .btn-secondary {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--primary-dark);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(124, 125, 117, 0.3);
 }
 
 .btn-secondary:hover {
-  background-color: #545b62;
+  background-color: #65665f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(124, 125, 117, 0.4);
 }
 
 .btn-danger {
   background-color: #dc3545;
   color: white;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
 
 .btn-danger:hover {
   background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
 }
 
 .note-card {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(124, 125, 117, 0.1);
+  border: 1px solid var(--primary-medium);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.note-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 125, 117, 0.15);
 }
 
 .note-header {
   display: flex;
   justify-content: between;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .note-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-accent);
+  padding-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .note-content {
-  color: #666;
-  line-height: 1.5;
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .note-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .dashboard-header {
@@ -122,30 +183,197 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  padding: 24px;
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--primary-medium);
+  box-shadow: 0 4px 15px rgba(124, 125, 117, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.dashboard-header h1 {
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dashboard-header p {
+  color: var(--text-medium);
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
 }
 
 .notes-grid {
   display: grid;
-  gap: 20px;
+  gap: 24px;
 }
 
 .auth-switch {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
+  color: var(--text-medium);
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .auth-switch a {
-  color: #007bff;
+  color: var(--primary-accent);
   text-decoration: none;
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .auth-switch a:hover {
   text-decoration: underline;
+  color: #b85909;
 }
 
 .error {
   color: #dc3545;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+  border-left: 3px solid #dc3545;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Ensure textarea preserves whitespace but uses Poppins for UI */
+.form-group textarea {
+  white-space: pre !important;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  line-height: 1.5;
+}
+
+/* Ensure note content preserves whitespace but uses Poppins for the container */
+.note-content pre {
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  margin: 0;
+  line-height: 1.6;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  color: var(--text-dark);
+}
+
+/* Better styling for code/content */
+.note-content {
+  background-color: var(--background-light);
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--primary-medium);
+  font-family: 'Poppins', sans-serif;
+}
+
+.note-meta {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--primary-medium);
+  font-family: 'Poppins', sans-serif;
+}
+
+.note-meta small {
+  color: var(--text-medium);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Loading states */
+.container > div:first-child {
+  color: var(--text-medium);
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Additional styling for better visual hierarchy */
+h1, h2, h3 {
+  color: var(--primary-dark);
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  margin-bottom: 24px;
+  color: var(--primary-dark);
+  font-size: 24px;
+  border-bottom: 2px solid var(--primary-medium);
+  padding-bottom: 12px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+/* Form container headings */
+.form-container h2 {
+  text-align: center;
+  color: var(--primary-dark);
+  margin-bottom: 32px;
+  border: none;
+  font-size: 26px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input placeholder styling */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-medium);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .form-container {
+    margin: 50px auto;
+    padding: 30px 20px;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .note-actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 24px;
+  }
+  
+  .note-title {
+    font-size: 18px;
+  }
 }

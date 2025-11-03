@@ -32,7 +32,16 @@ const NoteItem = ({ note, onUpdate, onDelete }) => {
         <h3 className="note-title">{note.title}</h3>
       </div>
       <div className="note-content">
-        {note.content}
+        {/* FIX: Use pre tag to preserve whitespace and tabs */}
+        <pre style={{ 
+          whiteSpace: 'pre-wrap',
+          wordWrap: 'break-word',
+          fontFamily: 'inherit',
+          margin: 0,
+          lineHeight: '1.5'
+        }}>
+          {note.content}
+        </pre>
       </div>
       <div className="note-meta">
         <small>
