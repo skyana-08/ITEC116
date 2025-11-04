@@ -12,10 +12,10 @@ export class AuthController {
 
   @Post('register')
   @ApiOperation({ summary: 'Register a new user' })
-  @ApiResponse({ 
-    status: 201, 
+  @ApiResponse({
+    status: 201,
     description: 'User successfully registered',
-    type: AuthResponseDto
+    type: AuthResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Bad request - validation failed' })
   @ApiResponse({ status: 409, description: 'Conflict - user already exists' })
@@ -27,12 +27,15 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login user' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'User successfully logged in',
-    type: AuthResponseDto
+    type: AuthResponseDto,
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized - invalid credentials' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - invalid credentials',
+  })
   @ApiBody({ type: LoginDto })
   async login(@Body() loginDto: LoginDto): Promise<AuthResponseDto> {
     return this.authService.login(loginDto);

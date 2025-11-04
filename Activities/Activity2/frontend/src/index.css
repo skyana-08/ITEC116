@@ -69,6 +69,7 @@ body {
   color: var(--text-dark);
   transition: all 0.3s ease;
   font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -82,6 +83,15 @@ body {
 .form-group textarea {
   min-height: 120px;
   resize: vertical;
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  line-height: 1.5;
 }
 
 .btn {
@@ -244,17 +254,6 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Ensure textarea preserves whitespace but uses Poppins for UI */
-.form-group textarea {
-  white-space: pre !important;
-  tab-size: 4;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  line-height: 1.5;
-}
-
-/* Ensure note content preserves whitespace but uses Poppins for the container */
 .note-content pre {
   white-space: pre-wrap !important;
   word-wrap: break-word;
@@ -267,7 +266,6 @@ body {
   color: var(--text-dark);
 }
 
-/* Better styling for code/content */
 .note-content {
   background-color: var(--background-light);
   padding: 16px;
@@ -290,14 +288,12 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Loading states */
 .container > div:first-child {
   color: var(--text-medium);
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Additional styling for better visual hierarchy */
 h1, h2, h3 {
   color: var(--primary-dark);
   font-family: 'Poppins', sans-serif;
@@ -321,7 +317,6 @@ h3 {
   font-weight: 600;
 }
 
-/* Form container headings */
 .form-container h2 {
   text-align: center;
   color: var(--primary-dark);
@@ -332,7 +327,6 @@ h3 {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Input placeholder styling */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
   color: var(--text-medium);
@@ -340,7 +334,6 @@ h3 {
   font-weight: 400;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .container {
     padding: 15px;

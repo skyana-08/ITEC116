@@ -1,12 +1,28 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiBearerAuth,
+  ApiBody,
+} from '@nestjs/swagger';
 import { Note } from './note.entity';
 
-// Add this interface to define the request type
 interface AuthenticatedRequest extends Request {
   user: {
     userId: number;
@@ -23,10 +39,17 @@ export class NotesController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new note' })
-  @ApiResponse({ status: 201, description: 'Note successfully created', type: Note })
+  @ApiResponse({
+    status: 201,
+    description: 'Note successfully created',
+    type: Note,
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiBody({ type: CreateNoteDto })
-  create(@Body() createNoteDto: CreateNoteDto, @Request() req: AuthenticatedRequest) {
+  create(
+    @Body() createNoteDto: CreateNoteDto,
+    @Request() req: AuthenticatedRequest,
+  ) {
     return this.notesService.create(createNoteDto, req.user.userId);
   }
 
@@ -55,7 +78,11 @@ export class NotesController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Note not found' })
   @ApiBody({ type: UpdateNoteDto })
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto, @Request() req: AuthenticatedRequest) {
+  update(
+    @Param('id') id: string,
+    @Body() updateNoteDto: UpdateNoteDto,
+    @Request() req: AuthenticatedRequest,
+  ) {
     return this.notesService.update(+id, updateNoteDto, req.user.userId);
   }
 

@@ -11,8 +11,8 @@ import { APP_PIPE } from '@nestjs/core';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root', // change as per your setup
-      password: '', // change as per your setup
+      username: 'root',
+      password: '',
       database: 'notes_app',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,

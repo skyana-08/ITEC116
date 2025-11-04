@@ -13,14 +13,12 @@ const NoteForm = ({ onSubmit, initialData = {}, onCancel, submitText = 'Create N
     });
   };
 
-  // Handle Tab key in textarea
   const handleKeyDown = (e) => {
     if (e.key === 'Tab') {
       e.preventDefault();
       const start = e.target.selectionStart;
       const end = e.target.selectionEnd;
       
-      // Insert tab character at cursor position
       const newContent = formData.content.substring(0, start) + '\t' + formData.content.substring(end);
       
       setFormData({
@@ -28,7 +26,6 @@ const NoteForm = ({ onSubmit, initialData = {}, onCancel, submitText = 'Create N
         content: newContent
       });
       
-      // Set cursor position after the tab
       setTimeout(() => {
         e.target.selectionStart = e.target.selectionEnd = start + 1;
       }, 0);
@@ -39,7 +36,6 @@ const NoteForm = ({ onSubmit, initialData = {}, onCancel, submitText = 'Create N
     e.preventDefault();
     if (formData.title.trim() && formData.content.trim()) {
       onSubmit(formData);
-      // Only reset if it's a new note (not editing)
       if (!initialData.id) {
         setFormData({ title: '', content: '' });
       }
@@ -64,11 +60,14 @@ const NoteForm = ({ onSubmit, initialData = {}, onCancel, submitText = 'Create N
           placeholder="Note Content"
           value={formData.content}
           onChange={handleChange}
-          onKeyDown={handleKeyDown} // Add tab key handler
+          onKeyDown={handleKeyDown}
           required
+          rows="8"
           style={{
-            fontFamily: 'monospace', // Use monospace for better alignment
-            whiteSpace: 'pre', // Preserve whitespace in textarea
+            fontFamily: "'Monaco', 'Menlo', 'Ubuntu Mono', monospace",
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
           }}
         />
       </div>

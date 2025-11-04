@@ -20,7 +20,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'User full name',
-    example: 'John Doe',
+    example: 'User',
     minLength: 2,
   })
   @IsString()

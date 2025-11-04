@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { authAPI } from '../services/api';
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { authAPI } from "../services/api";
 
 const Register = ({ switchToLogin }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
 
@@ -23,20 +23,20 @@ const Register = ({ switchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       setLoading(false);
       return;
     }
 
     try {
-      const { confirmPassword, ...registerData } = formData;
+      const { confirmPassword: _confirmPassword, ...registerData } = formData;
       const response = await authAPI.register(registerData);
       login(response.data.user, response.data.access_token);
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -88,7 +88,7 @@ const Register = ({ switchToLogin }) => {
         </div>
         {error && <div className="error">{error}</div>}
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Creating Account...' : 'Register'}
+          {loading ? "Creating Account..." : "Register"}
         </button>
       </form>
       <div className="auth-switch">
