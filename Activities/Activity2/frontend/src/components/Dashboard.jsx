@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './context/AuthContext';
-import Login from './components/Login';
-import Register from './components/Register';
-import NoteForm from './components/NoteForm';
-import NoteList from './components/NoteList';
-import { notesAPI } from './services/api';
+import { useAuth } from '../context/AuthContext';
+import Login from './Login';
+import Register from './Register';
+import NoteForm from './NoteForm';
+import NoteList from './NoteList';
+import { notesAPI } from '../services/api';
 
-function App() {
+function Dashboard() {
   const { user, logout, loading } = useAuth();
   const [currentView, setCurrentView] = useState('login');
   const [notes, setNotes] = useState([]);
@@ -101,4 +101,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;

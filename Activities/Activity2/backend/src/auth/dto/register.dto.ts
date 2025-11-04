@@ -20,7 +20,7 @@ export class RegisterDto {
 
   @ApiProperty({
     description: 'User full name',
-    example: 'John Doe',
+    example: 'User',
   })
   @IsString()
   @MinLength(2)

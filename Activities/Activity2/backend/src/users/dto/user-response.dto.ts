@@ -10,7 +10,7 @@ export class UserResponseDto {
   @ApiProperty({ example: 'User' })
   name: string;
 
-  @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
+  @ApiProperty({ example: '2025-01-01T00:00:00.000Z' })
   created_at: Date;
 
   constructor(partial: Partial<UserResponseDto>) {

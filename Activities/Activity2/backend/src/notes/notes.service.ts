@@ -40,9 +40,13 @@ export class NotesService {
     return await this.notesRepository.save(note);
   }
 
-  async update(id: number, updateNoteDto: UpdateNoteDto, userId: number): Promise<Note> {
+  async update(
+    id: number,
+    updateNoteDto: UpdateNoteDto,
+    userId: number,
+  ): Promise<Note> {
     const note = await this.findOne(id, userId);
-    
+
     Object.assign(note, updateNoteDto);
     return await this.notesRepository.save(note);
   }
