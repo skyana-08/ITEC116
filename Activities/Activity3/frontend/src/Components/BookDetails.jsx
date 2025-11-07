@@ -1,51 +1,52 @@
 import React from "react";
 import close from "../assets/close.svg";
 
-export default function BookDetails({ onClose }) {
+export default function BookDetails({ onClose, book }) {
+  if (!book) return null;
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 select-none">
       <div className="bg-[#203135] rounded-lg w-[420px] p-6 shadow-lg text-[#fff]">
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
-          <p className="text-xl font-semibold">Book Details</p>
-          <button
-            onClick={onClose}
-            className="hover:opacity-80 transition"
-          >
+          <p className="text-xl font-semibold">{book.title}</p>
+          <button onClick={onClose} className="hover:opacity-80 transition">
             <img src={close} alt="Close" className="w-6 h-6" />
           </button>
         </div>
 
         <hr className="mb-4 border-2 border-[#3a535a] rounded" />
 
-        {/* Book Preview */}
+        {/* Cover */}
         <div className="flex flex-col items-center mb-4">
-          <div className="relative w-40 h-60 hover:scale-105 transition-transform duration-150">
-            <div className="absolute inset-0 bg-[#388066] rounded-lg rounded-br-none z-0 shadow-md" />
-            <div className="absolute left-3 right-3 bottom-2 h-4 w-37 bg-white rounded-l-full z-10 shadow-sm" />
+          <div className="relative w-40 h-60 rounded-md overflow-hidden shadow-md">
+            {book.image ? (
+              <img
+                src={`http://localhost:3001/uploads/${book.image}`}
+                alt={book.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-[#2f4348] flex items-center justify-center text-gray-400">
+                No Cover
+              </div>
+            )}
           </div>
         </div>
 
         {/* Info */}
         <div className="space-y-2 text-sm">
           <div>
-            <p className="font-bold text-[#79a9b2]">Title:</p>
-            <p className="pl-2">Performative101</p>
-          </div>
-          <div>
             <p className="font-bold text-[#79a9b2]">Author:</p>
-            <p className="pl-2">Chroma</p>
+            <p className="pl-2">{book.author}</p>
           </div>
           <div>
             <p className="font-bold text-[#79a9b2]">Genre:</p>
-            <p className="pl-2">Comedy</p>
+            <p className="pl-2">{book.genre}</p>
           </div>
           <div>
             <p className="font-bold text-[#79a9b2]">Description:</p>
-            <p className="pl-2 text-justify">
-              A lighthearted look at how everyday actions can be seen as
-              performances in social settings.
-            </p>
+            <p className="pl-2 text-justify">{book.description}</p>
           </div>
         </div>
 
