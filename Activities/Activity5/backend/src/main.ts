@@ -5,26 +5,24 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS
-  app.enableCors({
-    origin: 'http://localhost:5173', 
-    methods: 'GET,POST,PATCH,DELETE',
-    credentials: true,
-  });
+  // Enable CORS so your frontend can call backend
+  app.enableCors();
 
-  // Swagger setup
+  // ---- Swagger setup ----
   const config = new DocumentBuilder()
-    .setTitle('Blog Platform API')
-    .setDescription('API documentation for the Blog Platform project')
+    .setTitle('Blog API')
+    .setDescription('API documentation for Blog Platform')
     .setVersion('1.0')
-    .addBearerAuth() // if you want JWT auth in Swagger
+    .addBearerAuth() // Optional: if using JWT authentication
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document); // Swagger UI available at http://localhost:3000/api
 
+  // ---- Start server ----
   await app.listen(3000);
   console.log('Backend running on http://localhost:3000');
-  console.log('Swagger available at http://localhost:3000/api');
+  console.log('Swagger docs available on http://localhost:3000/api');
 }
 bootstrap();
+

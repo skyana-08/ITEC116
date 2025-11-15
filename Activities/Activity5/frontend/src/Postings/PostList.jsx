@@ -1,6 +1,15 @@
 import Post from './Post.jsx'
 
-const PostList = ({ posts, currentUser, onAddComment, onDeletePost }) => {
+const PostList = ({ 
+  posts, 
+  currentUser, 
+  onAddComment, 
+  onDeletePost, 
+  onUpdatePost, 
+  onDeleteComment, 
+  onUpdateComment,
+  onEditPost
+}) => {
   return (
     <div>
       <h2>Recent Posts</h2>
@@ -17,6 +26,10 @@ const PostList = ({ posts, currentUser, onAddComment, onDeletePost }) => {
               currentUser={currentUser}
               onAddComment={onAddComment}
               onDeletePost={onDeletePost}
+              onUpdatePost={onUpdatePost}
+              onDeleteComment={onDeleteComment}
+              onUpdateComment={onUpdateComment}
+              onEditPost={onEditPost}
             />
           ))
         )}

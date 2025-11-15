@@ -42,11 +42,12 @@ function App() {
         />
       )}
       {currentView === 'register' && (
-        <Register 
-          onRegister={handleLogin}
-          onSwitchToLogin={switchToLogin}
-        />
-      )}
+  <Register 
+    onRegister={handleLogin}   // backend auto-login
+    onSwitchToLogin={switchToLogin}
+  />
+)}
+
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { apiPost } from '../api'
 
 const Register = ({ onRegister, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
     confirmPassword: ''
   })
   const [errors, setErrors] = useState({})
+  const [serverError, setServerError] = useState("")
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -15,7 +17,6 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
       ...prev,
       [name]: value
     }))
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -26,111 +27,71 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
 
   const validateForm = () => {
     const newErrors = {}
-    
-    if (!formData.name) {
-      newErrors.name = 'Name is required'
-    }
-    
-    if (!formData.email) {
-      newErrors.email = 'Email is required'
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid'
-    }
-    
-    if (!formData.password) {
-      newErrors.password = 'Password is required'
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters'
-    }
-    
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password'
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match'
-    }
+
+    if (!formData.name) newErrors.name = 'Name is required'
+    if (!formData.email) newErrors.email = 'Email is required'
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email'
+    if (!formData.password) newErrors.password = 'Password is required'
+    else if (formData.password.length < 6) newErrors.password = 'Min 6 characters'
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match'
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    if (validateForm()) {
-      // Simulate registration - in real app, this would be an API call
-      onRegister({
-        id: 1,
+    setServerError("")
+
+    if (!validateForm()) return
+
+    try {
+      const result = await apiPost("/users/register", {
         name: formData.name,
-        email: formData.email
+        email: formData.email,
+        password: formData.password,
       })
+
+      // Now auto-login on register
+      onRegister(result)
+
+    } catch (err) {
+      setServerError(err.message)
     }
   }
 
   return (
     <div className="form-container">
-      <div style={{ textAlign: 'center', marginBottom: '10px' }}>
-        <h2>Create Account</h2>
-        <p style={{ color: 'var(--text-medium)', marginBottom: '30px' }}>
-          Join our blogging community
-        </p>
-      </div>
-      
+      <h2>Create Account</h2>
+
+      {serverError && <div className="error">{serverError}</div>}
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Enter your full name"
-          />
+          <label>Full Name</label>
+          <input name="name" value={formData.name} onChange={handleChange} />
           {errors.name && <div className="error">{errors.name}</div>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-          />
+          <label>Email</label>
+          <input name="email" value={formData.email} onChange={handleChange} />
           {errors.email && <div className="error">{errors.email}</div>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Create a password"
-          />
+          <label>Password</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
           {errors.password && <div className="error">{errors.password}</div>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="Confirm your password"
-          />
+          <label>Confirm Password</label>
+          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
           {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
         </div>
 
-        <button type="submit" className="btn btn-primary" style={{width: '100%', marginTop: '10px'}}>
-          Create Account
-        </button>
+        <button className="btn btn-primary" style={{ width: '100%' }}>Register</button>
       </form>
 
       <div className="auth-switch">
